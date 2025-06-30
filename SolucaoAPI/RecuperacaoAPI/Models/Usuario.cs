@@ -10,6 +10,8 @@ namespace RecuperacaoAPI.Models
     {
         public int ID_Usuario { get; set; }
         public string? Nome_Usuario { get; set; }
+        public string? Email_Usuario{ get; set; }
         public string? Senha_Usuario { get; set; }
+        public Role Role { get; set; } = Role.user;
     }
 }
