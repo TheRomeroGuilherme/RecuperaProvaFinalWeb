@@ -15,7 +15,7 @@ namespace RecuperacaoAPI.Models
 
         [Required]
         public string? Senha_Usuario { get; set; }
-        public Role roleUser { get; set; } = Role.user;
-        public Role roleAdm { get; set; } = Role.admin;
+        public Role role_User { get; set; } = Role.user;
+        public Role role { get; set; } = Role.admin;
     }
 }

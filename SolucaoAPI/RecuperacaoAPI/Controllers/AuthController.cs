@@ -20,7 +20,9 @@ namespace NomeDoProjeto1.Controllers;
 
       private static List<Usuario> usuarios = new()
       {
-          new Usuario { ID_Usuario = 1, Email_Usuario = "admin@empresa.com", Senha_Usuario = "123456", Role = Role.admin },
+          new Usuario { ID_Usuario = 1, Email_Usuario = "admin@empresa.com", Senha_Usuario = "123456", role_User = Role.admin },
+          new Usuario { ID_Usuario = 2, Email_Usuario = "user@empresa.com", Senha_Usuario = "123456", role = Role.user },
+      };
       };
 
       [HttpPost("login")]
@@ -36,7 +38,7 @@ namespace NomeDoProjeto1.Controllers;
           return Ok(new { token });
       }
 
-      private string GerarToken(Usuario usuario)
+      private string GerarToken(Usuario usuari)
       {
           var claims = new[]
           {
@@ -44,7 +46,7 @@ namespace NomeDoProjeto1.Controllers;
               new Claim(ClaimTypes.Role, usuario.Role.ToString())
           };
 
-          var chave = Encoding.UTF8.GetBytes(_configuration["JwtSettings:SecretKey"]!);
+          var chave = Encoding.UTF8.GetBytes(IConfiguration["JwtSettings:SecretKey"]!);
           var credenciais = new SigningCredentials(
               new SymmetricSecurityKey(chave), SecurityAlgorithms.HmacSha256);
 
