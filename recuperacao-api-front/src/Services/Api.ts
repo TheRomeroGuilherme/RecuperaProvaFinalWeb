@@ -2,10 +2,10 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://sua-api.com', // Ajuste conforme o ambiente
+  baseURL: 'http://localhost:5210', // URL correta da sua API
 });
 
-// Interceptor de requisição: adiciona o token automaticamente
+// Interceptor para adicionar o token de autenticação em todas as requisições
 api.interceptors.request.use((config) => {
   if (typeof window !== 'undefined') {
     const token = localStorage.getItem('token');
@@ -14,14 +14,18 @@ api.interceptors.request.use((config) => {
     }
   }
   return config;
+}, (error) => {
+  return Promise.reject(error);
 });
 
-// Interceptor de resposta: trata erro de autenticação
+// Interceptor para tratar erros de autenticação (401 - Unauthorized)
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (typeof window !== 'undefined' && error.response?.status === 401) {
-      window.location.href = '/nao-autenticado';
+      // Se o erro for 401, remove o token inválido e redireciona para o login
+      localStorage.removeItem('token');
+      window.location.href = '/login';
     }
     return Promise.reject(error);
   }

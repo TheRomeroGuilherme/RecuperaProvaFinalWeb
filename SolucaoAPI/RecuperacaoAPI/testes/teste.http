@@ -1,0 +1,53 @@
+@baseUrl = http://localhost:5210
+
+###
+# Cadastra um novo usuário
+# @name registerUser
+POST {{baseUrl}}/Usuario/Login
+Content-Type: application/json
+
+{
+  "nome_Usuario": "teste",
+  "senha_Usuario": "senha123"
+}
+
+###
+# Realiza o login do usuário (Endpoint a ser criado)
+# Este endpoint deve retornar um token JWT
+POST {{baseUrl}}/api/Usuario/login
+Content-Type: application/json
+
+{
+  "nome_Usuario": "teste",
+  "senha_Usuario": "senha123"
+}
+
+###
+POST {{baseUrl}}/api/Lancamento/cadastrar
+Content-Type: application/json
+Authorization: Bearer 5c4ZIGHLm/piQwpj3jWxOTt7btDXIX+uKbR5q/v/Pmc=
+{
+  "tipo_Categoria": "Receita",
+  "text_Lancamento": "Salário",
+  "valor_Total": 5000.00
+}
+
+###
+GET {{baseUrl}}/api/Lancamento/listar
+Authorization: Bearer 5c4ZIGHLm/piQwpj3jWxOTt7btDXIX+uKbR5q/v/Pmc=
+
+###
+PUT {{baseUrl}}/api/Lancamento/atualizar/1
+Content-Type: application/json
+Authorization: Bearer 5c4ZIGHLm/piQwpj3jWxOTt7btDXIX+uKbR5q/v/Pmc=
+
+{
+  "tipo_Categoria": "Despesa",
+  "text_Lancamento": "Aluguel",
+  "valor_Total": 1500.00
+}
+
+###
+# Deleta um lançamento (Endpoint a ser criado)
+DELETE {{baseUrl}}/api/Lancamento/deletar/1
+Authorization: Bearer 5c4ZIGHLm/piQwpj3jWxOTt7btDXIX+uKbR5q/v/Pmc=
